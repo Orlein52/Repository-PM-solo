@@ -34,12 +34,15 @@ public class PlayerController : MonoBehaviour
     {
 
         //Camera
-        playerCam.transform.position = transform.position + (camerOffset);
+        /*playerCam.transform.position = transform.position + (camerOffset);
         cameraRotation.x += lookAxis.ReadValue<Vector2>().x * Xsensitivity;
         cameraRotation.y += lookAxis.ReadValue<Vector2>().y * Ysensitivity;
         cameraRotation.y = Mathf.Clamp(cameraRotation.y, -cameraYMaxMin, cameraYMaxMin);
-        playerCam.transform.rotation = Quaternion.Euler(-cameraRotation.y, cameraRotation.x, 0);
-        transform.rotation = Quaternion.AngleAxis(cameraRotation.x, Vector3.up);
+        playerCam.transform.rotation = Quaternion.Euler(-cameraRotation.y, cameraRotation.x, 0);*/
+        Quaternion playerRotation = Quaternion.identity;
+        playerRotation.y = playerCam.transform.rotation.y;
+        playerRotation.w = playerCam.transform.rotation.w;
+        transform.rotation = playerRotation;
 
         //Movement
         Vector3 tempMove = rb.linearVelocity;
