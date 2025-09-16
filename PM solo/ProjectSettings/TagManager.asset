@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
+  - Heal
+  - KillBox
+  - Hazrds
   layers:
   - Default
   - TransparentFX
