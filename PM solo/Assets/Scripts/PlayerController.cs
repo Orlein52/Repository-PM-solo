@@ -96,6 +96,11 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
         }
 
+        if (other.tag == "Enemy")
+        {
+            Health -= 3;
+        }
+
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -103,6 +108,13 @@ public class PlayerController : MonoBehaviour
         {
             Health -= 2;
         }
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Health -= 3;
+        }
+
     }
+
 
 }
