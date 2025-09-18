@@ -6,7 +6,12 @@ public class ShootingEnemy : MonoBehaviour
     NavMeshAgent agent;
     Vector3 playerpos;
     float distance;
-    public float StayAway = 5;
+    public float StayAway = 5f;
+    Ray maybe;
+    Vector3 run;
+    Vector3 perchance;
+    public float RunAway = 5f;
+    public float advance = 5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,19 +24,29 @@ public class ShootingEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.destination = GameObject.Find("Player").transform.position;
-        distance = Vector3.Distance(agent.destination, transform.position);
-        Debug.Log(distance);
-
-        if (distance < StayAway)
+        
+        distance = Vector3.Distance(playerpos, transform.position);
+        perchance = transform.position - playerpos;
+        maybe = new Ray(playerpos, perchance);
+        playerpos = GameObject.Find("Player").transform.position;
+        
+        if (distance > StayAway)
         {
             agent.isStopped = false;
-
+            agent.destination = playerpos;
+            agent.speed = advance;
         }
-        else
+        if (distance == StayAway)
         {
 
             agent.isStopped = true;
+        }
+        if (distance < StayAway)
+        {
+            run = maybe.GetPoint(StayAway);
+            agent.isStopped = false;
+            agent.destination = run;
+            agent.speed = RunAway;
         }
             
     }
