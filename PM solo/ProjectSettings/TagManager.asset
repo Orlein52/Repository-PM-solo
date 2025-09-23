@@ -8,6 +8,8 @@ TagManager:
   - Heal
   - KillBox
   - Hazrds
+  - Proj
+  - weapon
   layers:
   - Default
   - TransparentFX

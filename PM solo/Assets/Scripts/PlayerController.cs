@@ -6,6 +6,13 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody rb;
     Ray jumpRay;
+    Ray interactRay;
+    RaycastHit interactHit;
+    GameObject pickupObj;
+
+    public PlayerInput input;
+    public Transform weaponSlot;
+    public Weapon currentWeapon;
 
     float inputX;
     float inputY;
@@ -15,11 +22,14 @@ public class PlayerController : MonoBehaviour
     public int MaxHealth = 10;
     public int Health = 10;
     public int HealAmount = 5;
+    public float interactDis = 1f;
 
     Vector3 camerOffset = new Vector3(0, 3.5f, -6);
     Camera playerCam;
     InputAction lookAxis;
     Vector2 cameraRotation = new Vector2(-10, 0);
+
+    public bool attacking = false;
 
     void Start()
     {
@@ -31,6 +41,10 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         jumpRay = new Ray(transform.position, -transform.up);
+
+        input = GetComponent<PlayerInput>();
+        interactRay = new Ray(transform.position, transform.forward);
+        weaponSlot = transform.GetChild(0);
 
     }
 
@@ -63,6 +77,30 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
+        //Attack & Weapons
+
+        interactRay.origin = playerCam.transform.position;
+        interactRay.direction = playerCam.transform.forward;
+
+        if (Physics.Raycast(interactRay, out interactHit, interactDis))
+        {
+            if (interactHit.collider.tag == "weapon")
+            {
+                pickupObj = interactHit.collider.gameObject;
+            }
+        }
+        else
+        {
+            pickupObj = null;
+        }
+
+        if (currentWeapon)
+        {
+            if (currentWeapon.holdToAttack && attacking)
+                currentWeapon.fire();
+        }
+
+
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -79,6 +117,57 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(jumpRay, JumpDis))
             rb.AddForce(transform.up * JumpHeight, ForceMode.Impulse);
 
+    }
+
+    public void Attack(InputAction.CallbackContext context)
+    {
+        if (currentWeapon)
+        {
+            if (currentWeapon.holdToAttack)
+            {
+                if (context.ReadValueAsButton())
+                {
+                    attacking = true;
+                }
+                else
+                {
+                    attacking = false;
+                }
+            }
+            else if (context.ReadValueAsButton())
+            {
+                currentWeapon.fire();
+            }
+        }
+    }
+
+    public void DropWeapon()
+    {
+        if(currentWeapon)
+        {
+            currentWeapon.GetComponent<Weapon>().unequip();
+        }
+    }
+
+    public void Reload()
+    {
+        if (currentWeapon)
+            currentWeapon.reload();
+    }
+
+    public void Interact()
+    {
+        if (pickupObj)
+        {
+            if (pickupObj.tag == "weapon")
+            {
+                pickupObj.GetComponent<Weapon>().equip(this);
+            }
+            else
+            {
+                Reload();
+            }
+        }
     }
 
     //Tag Collision
