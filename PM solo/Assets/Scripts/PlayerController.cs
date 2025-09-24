@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
         //Attack & Weapons
 
-        interactRay.origin = playerCam.transform.position;
+        interactRay.origin = transform.position;
         interactRay.direction = playerCam.transform.forward;
 
         if (Physics.Raycast(interactRay, out interactHit, interactDis))
@@ -101,6 +101,14 @@ public class PlayerController : MonoBehaviour
         }
 
 
+    }
+
+    public void firemodeSwitch()
+    {
+        if (currentWeapon.weaponID == 1)
+        {
+            currentWeapon.GetComponent<Grenade>().changeFiremode();
+        }
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -152,7 +160,10 @@ public class PlayerController : MonoBehaviour
     public void Reload()
     {
         if (currentWeapon)
-            currentWeapon.reload();
+            if (!currentWeapon.reloading)
+            {
+                currentWeapon.reload();
+            }
     }
 
     public void Interact()
@@ -161,6 +172,8 @@ public class PlayerController : MonoBehaviour
         {
             if (pickupObj.tag == "weapon")
             {
+                if (currentWeapon)
+                    DropWeapon();
                 pickupObj.GetComponent<Weapon>().equip(this);
             }
             else

@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4991998333099313510}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.481}
+  m_LocalPosition: {x: 0, y: 0, z: 0.502}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -162,17 +162,21 @@ MonoBehaviour:
   firingDirection: {fileID: 0}
   canFire: 1
   holdToAttack: 1
+  reloading: 0
+  scattershot: 0
+  arc: 0
   weaponID: 1
-  weaponName: Grenade Launcher
+  weaponName: Grenade
   projLifespan: 3
-  projVelocity: 5000
+  projVelocity: 300
   reloadCooldown: 1
   rof: 0.5
-  fireModes: 0
+  arcup: 1.05
+  fireModes: 1
   currentFireMode: 0
   clip: 12
   clipSize: 12
-  ammo: 12
+  ammo: 144
   maxAmmo: 144
   ammoRefill: 12
 --- !u!54 &-2493633712138404374
@@ -197,7 +201,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -401,7 +405,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

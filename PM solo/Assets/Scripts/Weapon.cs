@@ -11,10 +11,15 @@ public class Weapon : MonoBehaviour
     public AudioSource weaponSpeaker;
     public Transform firePoint;
     public Camera firingDirection;
+    Vector3 fireforce;
+    Vector3 arcdir;
 
     [Header("Meta Attributes")]
     public bool canFire = true;
     public bool holdToAttack = true;
+    public bool reloading = false;
+    public bool scattershot = false;
+    public bool arc = false;
     public int weaponID;
     public string weaponName;
 
@@ -23,6 +28,7 @@ public class Weapon : MonoBehaviour
     public float projVelocity;
     public float reloadCooldown;
     public float rof;
+    public float arcup;
     public int fireModes;
     public int currentFireMode;
     public int clip;
@@ -38,19 +44,46 @@ public class Weapon : MonoBehaviour
     {
         weaponSpeaker = GetComponent<AudioSource>();
         firePoint = transform.GetChild(0);
+        fireforce = firingDirection.transform.forward;
+        arcdir = fireforce + (transform.up * arcup);
+    }
+
+    void Update()
+    {
+
+        fireforce = firingDirection.transform.forward;
+        arcdir = fireforce + (transform.up * arcup);
+
     }
 
     public void fire()
     {
-        if (canFire && clip > 0 && weaponID > -1)
+        if (canFire && !reloading && clip > 0 && weaponID > -1)
         {
             weaponSpeaker.Play();
-            GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
-            p.GetComponent<Rigidbody>().AddForce(firingDirection.transform.forward * projVelocity);
-            Destroy(p, projLifespan);
+
+            if (!scattershot && arc)
+            {
+                GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
+                p.GetComponent<Rigidbody>().AddForce(arcdir  * projVelocity, ForceMode.Impulse);
+
+                Destroy(p, projLifespan);
+            }
+            if (!scattershot && !arc)
+            {
+                GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
+                p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
+
+                Destroy(p, projLifespan);
+            }
+            if (scattershot)
+            {
+
+            }
+
             clip--;
             canFire = false;
-            StartCoroutine("cooldownFire", rof);
+            StartCoroutine("cooldownFire");
         }
     }
 
@@ -75,7 +108,9 @@ public class Weapon : MonoBehaviour
                 ammo -= reloadCount;
             }
 
-            StartCoroutine("cooldownFire", reloadCooldown);
+            reloading = true;
+            canFire = false;
+            StartCoroutine("reloadingCooldown");
             return;
         }
     }
@@ -107,11 +142,18 @@ public class Weapon : MonoBehaviour
         this.player = null;
     }
 
-    IEnumerator cooldownFire(float cooldownTime)
+    IEnumerator cooldownFire()
     {
-        yield return new WaitForSeconds(cooldownTime);
+        yield return new WaitForSeconds(rof);
 
         if (clip > 0)
             canFire = true;
+    }
+
+    IEnumerator reloadingCooldown()
+    {
+        yield return new WaitForSeconds(reloadCooldown);
+        reloading = false;
+        canFire = true;
     }
 }
