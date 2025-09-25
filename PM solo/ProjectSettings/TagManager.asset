@@ -10,6 +10,11 @@ TagManager:
   - Hazrds
   - Proj
   - weapon
+  - UI_Health
+  - UI_Ammo
+  - UI_Clip
+  - Weapon_UI
+  - UI_Pause
   layers:
   - Default
   - TransparentFX

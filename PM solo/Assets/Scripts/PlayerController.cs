@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
         interactRay = new Ray(transform.position, transform.forward);
         weaponSlot = transform.GetChild(0);
 
+        currentWeapon = null;
+
     }
 
     void Update()
@@ -79,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
         //Attack & Weapons
 
-        interactRay.origin = transform.position;
+        interactRay.origin = playerCam.transform.position;
         interactRay.direction = playerCam.transform.forward;
 
         if (Physics.Raycast(interactRay, out interactHit, interactDis))
@@ -154,6 +156,7 @@ public class PlayerController : MonoBehaviour
         if(currentWeapon)
         {
             currentWeapon.GetComponent<Weapon>().unequip();
+            currentWeapon = null;
         }
     }
 

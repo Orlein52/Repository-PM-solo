@@ -50,9 +50,12 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-
-        fireforce = firingDirection.transform.forward;
-        arcdir = fireforce + (transform.up * arcup);
+        if (player.currentWeapon != null)
+        {
+            fireforce = firingDirection.transform.forward;
+            arcdir = fireforce + (transform.up * arcup);
+        }
+        
 
     }
 
@@ -65,7 +68,8 @@ public class Weapon : MonoBehaviour
             if (!scattershot && arc)
             {
                 GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
-                p.GetComponent<Rigidbody>().AddForce(arcdir  * projVelocity, ForceMode.Impulse);
+                p.GetComponent<Rigidbody>().AddForce(fireforce  * projVelocity);
+                p.GetComponent<Rigidbody>().AddForce(transform.up * arcup, ForceMode.Impulse);
 
                 Destroy(p, projLifespan);
             }
