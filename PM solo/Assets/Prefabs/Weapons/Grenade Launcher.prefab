@@ -157,6 +157,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 5920285066887852185, guid: ad03ee00210463a40acb8a8ad73e4065, type: 3}
+  scatter1: {fileID: 8388013705322097123, guid: 0c9f43731dfb65745a03fb15c027a99d, type: 3}
+  scatter2: {fileID: 2936115840776853745, guid: cd6127dc23c67414aa424dd1b9127e90, type: 3}
+  scatter3: {fileID: 7493377089933396794, guid: d25e42e563ebce346866eb89abd46ad0, type: 3}
+  scatter4: {fileID: 1626562710283894796, guid: 8b0e92a6506bba34b8d15e200470ae4d, type: 3}
+  scatter5: {fileID: 7743231477119045168, guid: ab1be2da3da8d1d4383a187bc498f55e, type: 3}
+  scatter6: {fileID: 8388013705322097123, guid: 0c9f43731dfb65745a03fb15c027a99d, type: 3}
+  scatter7: {fileID: 7743231477119045168, guid: ab1be2da3da8d1d4383a187bc498f55e, type: 3}
+  scatter8: {fileID: 2936115840776853745, guid: cd6127dc23c67414aa424dd1b9127e90, type: 3}
   weaponSpeaker: {fileID: 6897620924276753903}
   firePoint: {fileID: 4126291548548354905}
   firingDirection: {fileID: 0}
@@ -172,8 +180,9 @@ MonoBehaviour:
   reloadCooldown: 1
   rof: 0.5
   arcup: 1.05
-  fireModes: 1
-  currentFireMode: 0
+  scatter: 0
+  fireModes: 2
+  currentFireMode: 2
   clip: 12
   clipSize: 12
   ammo: 144

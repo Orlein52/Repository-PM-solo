@@ -8,7 +8,7 @@ public class Grenade : Weapon
         {
             currentFireMode++;
 
-            if (currentFireMode >= fireModes)
+            if (currentFireMode > fireModes)
             {
                 currentFireMode = 0;
             }
@@ -29,7 +29,8 @@ public class Grenade : Weapon
         }
         if (currentFireMode == 2)
         {
-            
+            scattershot = true;
+            arc = false;
         }
 
 

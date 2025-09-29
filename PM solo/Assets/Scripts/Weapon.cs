@@ -7,7 +7,17 @@ public class Weapon : MonoBehaviour
 {
     PlayerController player;
 
+    Explosion Explosion;
+
     public GameObject projectile;
+    public GameObject scatter1;
+    public GameObject scatter2;
+    public GameObject scatter3;
+    public GameObject scatter4;
+    public GameObject scatter5;
+    public GameObject scatter6;
+    public GameObject scatter7;
+    public GameObject scatter8;
     public AudioSource weaponSpeaker;
     public Transform firePoint;
     public Camera firingDirection;
@@ -29,6 +39,7 @@ public class Weapon : MonoBehaviour
     public float reloadCooldown;
     public float rof;
     public float arcup;
+    public float scatter;
     public int fireModes;
     public int currentFireMode;
     public int clip;
@@ -46,15 +57,12 @@ public class Weapon : MonoBehaviour
         firePoint = transform.GetChild(0);
         fireforce = firingDirection.transform.forward;
         arcdir = fireforce + (transform.up * arcup);
+        scatter = Random.Range(1, 8);
+        Mathf.RoundToInt (scatter);
     }
 
     void Update()
     {
-        if (player.currentWeapon != null)
-        {
-            fireforce = firingDirection.transform.forward;
-            arcdir = fireforce + (transform.up * arcup);
-        }
         
 
     }
@@ -65,12 +73,14 @@ public class Weapon : MonoBehaviour
         {
             weaponSpeaker.Play();
 
+            fireforce = firingDirection.transform.forward;
+            arcdir = fireforce + (transform.up * arcup);
+
             if (!scattershot && arc)
             {
                 GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
                 p.GetComponent<Rigidbody>().AddForce(fireforce  * projVelocity);
                 p.GetComponent<Rigidbody>().AddForce(transform.up * arcup, ForceMode.Impulse);
-
                 Destroy(p, projLifespan);
             }
             if (!scattershot && !arc)
@@ -80,8 +90,48 @@ public class Weapon : MonoBehaviour
 
                 Destroy(p, projLifespan);
             }
-            if (scattershot)
+            if (scattershot && !arc)
             {
+                if (scatter == 1)
+                {
+                    GameObject p = Instantiate(scatter1, firePoint.position, transform.rotation);
+                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
+                }
+                if (scatter == 2)
+                {
+                    GameObject p = Instantiate(scatter2, firePoint.position, transform.rotation);
+                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
+                }
+                if (scatter == 3)
+                {
+                    GameObject p = Instantiate(scatter3, transform.position, transform.rotation);
+                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
+                }
+                if (scatter == 4)
+                {
+                    GameObject p = Instantiate(scatter4, firePoint.position, transform.rotation);
+                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
+                }
+                if (scatter == 5)
+                {
+                    GameObject p = Instantiate(scatter5, firePoint.position, transform.rotation);
+                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
+                }
+                if (scatter == 6)
+                {
+                    GameObject p = Instantiate(scatter6, firePoint.position, transform.rotation);
+                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
+                }
+                if (scatter == 7)
+                {
+                    GameObject p = Instantiate(scatter7, firePoint.position, transform.rotation);
+                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
+                }
+                if (scatter == 8)
+                {
+                    GameObject p = Instantiate(scatter8, firePoint.position, transform.rotation);
+                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
+                }
 
             }
 
@@ -151,7 +201,11 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(rof);
 
         if (clip > 0)
+        {
             canFire = true;
+        }
+        scatter = Random.Range(1, 8);
+        Mathf.RoundToInt(scatter);
     }
 
     IEnumerator reloadingCooldown()
