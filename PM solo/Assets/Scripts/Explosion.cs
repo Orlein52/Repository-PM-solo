@@ -1,10 +1,12 @@
+using System.Collections;
 using UnityEngine;
 
 
 public class Explosion : MonoBehaviour
 {
     public GameObject explosion;
-    public Weapon weapon;
+
+    public float explosionLifespan = 2;
     
     void Start()
     {
@@ -17,12 +19,12 @@ public class Explosion : MonoBehaviour
         
     }
 
-    public void Explode(float a)
+    public IEnumerator explosionWait(float time, GameObject proj)
     {
-
-        Destroy(gameObject, a);
-        
+        yield return new WaitForSeconds(time);
+        GameObject e = Instantiate(explosion, proj.transform.position, proj.transform.rotation);
+        Destroy(proj);
+        Destroy(e, explosionLifespan);
         
     }
-
 }

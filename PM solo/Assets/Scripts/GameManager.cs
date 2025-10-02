@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
         weaponUI = GameObject.FindGameObjectWithTag("Weapon_UI");
         pauseMenu = GameObject.FindGameObjectWithTag("UI_Pause");
         pauseMenu.SetActive(false);
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame

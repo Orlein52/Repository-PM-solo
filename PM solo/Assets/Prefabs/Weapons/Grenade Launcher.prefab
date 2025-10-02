@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 1879334634715399775}
   - component: {fileID: -2493633712138404374}
   - component: {fileID: 6897620924276753903}
+  - component: {fileID: -1413221173079817595}
   m_Layer: 0
   m_Name: Grenade Launcher
   m_TagString: weapon
@@ -181,7 +182,7 @@ MonoBehaviour:
   rof: 0.5
   arcup: 1.05
   scatter: 0
-  fireModes: 2
+  fireModes: 3
   currentFireMode: 2
   clip: 12
   clipSize: 12
@@ -195,10 +196,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5189570899093985466}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -312,6 +313,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-1413221173079817595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5189570899093985466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d117470862596dc43aaff4068676b402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 4777466755144045673, guid: a2884032844b0fa4591784a0b1902b35, type: 3}
+  explosionLifespan: 2
 --- !u!1 &5257403571573955820
 GameObject:
   m_ObjectHideFlags: 0

@@ -59,6 +59,7 @@ public class Weapon : MonoBehaviour
         arcdir = fireforce + (transform.up * arcup);
         scatter = Random.Range(1, 8);
         Mathf.RoundToInt (scatter);
+        Explosion = GetComponent<Explosion>();
     }
 
     void Update()
@@ -81,7 +82,7 @@ public class Weapon : MonoBehaviour
                 GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
                 p.GetComponent<Rigidbody>().AddForce(fireforce  * projVelocity);
                 p.GetComponent<Rigidbody>().AddForce(transform.up * arcup, ForceMode.Impulse);
-                Destroy(p, projLifespan);
+                Explosion.explosionWait(projLifespan, p);
             }
             if (!scattershot && !arc)
             {
