@@ -4,12 +4,11 @@ public class Grenade : Weapon
 {
     public void changeFiremode()
     {
-        if (fireModes >= 3)
+        if (fireModes >= 9)
         {
             currentFireMode++;
 
             if (currentFireMode >= fireModes)
-            
                 currentFireMode = 0;
             
 
@@ -20,14 +19,14 @@ public class Grenade : Weapon
                 scattershot = false;
                 arc = true;
             }
-            if (currentFireMode == 1)
+            else if (currentFireMode == 3)
             {
                 holdToAttack = true;
                 rof = 0.5f;
                 scattershot = false;
                 arc = false;
             }
-            if (currentFireMode == 2)
+            else if (currentFireMode == 6)
             {
                 scattershot = true;
                 arc = false;

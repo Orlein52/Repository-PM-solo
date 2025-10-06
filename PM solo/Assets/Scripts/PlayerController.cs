@@ -107,9 +107,14 @@ public class PlayerController : MonoBehaviour
 
     public void firemodeSwitch()
     {
-        if (currentWeapon.weaponID == 1)
+        
+
+        if (currentWeapon != null)
         {
-            currentWeapon.GetComponent<Grenade>().changeFiremode();
+            if (currentWeapon.weaponID == 1)
+            {
+                currentWeapon.GetComponent<Grenade>().changeFiremode();
+            }
         }
     }
 

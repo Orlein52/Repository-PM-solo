@@ -7,10 +7,10 @@ public class Weapon : MonoBehaviour
 {
     PlayerController player;
 
-    Explosion Explosion;
+    public Explosion Explosion;
 
     public GameObject projectile;
-    public GameObject scatter1;
+    public GameObject scatter1;      
     public GameObject scatter2;
     public GameObject scatter3;
     public GameObject scatter4;
@@ -83,6 +83,7 @@ public class Weapon : MonoBehaviour
                 p.GetComponent<Rigidbody>().AddForce(fireforce  * projVelocity);
                 p.GetComponent<Rigidbody>().AddForce(transform.up * arcup, ForceMode.Impulse);
                 Explosion.explosionWait(projLifespan, p);
+                Debug.Log("yes");
             }
             if (!scattershot && !arc)
             {

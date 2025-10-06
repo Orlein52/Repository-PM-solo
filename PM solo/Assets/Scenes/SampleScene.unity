@@ -947,7 +947,7 @@ MonoBehaviour:
     m_ActionId: eea69cac-2b2d-4999-86ba-247433e6507c
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -4663,10 +4663,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1879334634715399775, guid: e2ee7c8b71c9bfe488d5d2bd9cda5a0a, type: 3}
-      propertyPath: currentFireMode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1879334634715399775, guid: e2ee7c8b71c9bfe488d5d2bd9cda5a0a, type: 3}
       propertyPath: firingDirection
       value: 

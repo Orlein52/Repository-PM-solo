@@ -182,8 +182,8 @@ MonoBehaviour:
   rof: 0.5
   arcup: 1.05
   scatter: 0
-  fireModes: 3
-  currentFireMode: 2
+  fireModes: 9
+  currentFireMode: 0
   clip: 12
   clipSize: 12
   ammo: 144

@@ -21,6 +21,7 @@ public class Explosion : MonoBehaviour
 
     public IEnumerator explosionWait(float time, GameObject proj)
     {
+        Debug.Log("Triggered");
         yield return new WaitForSeconds(time);
         GameObject e = Instantiate(explosion, proj.transform.position, proj.transform.rotation);
         Destroy(proj);
