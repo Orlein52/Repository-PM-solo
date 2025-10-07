@@ -82,7 +82,7 @@ public class Weapon : MonoBehaviour
                 GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
                 p.GetComponent<Rigidbody>().AddForce(fireforce  * projVelocity);
                 p.GetComponent<Rigidbody>().AddForce(transform.up * arcup, ForceMode.Impulse);
-                Explosion.explosionWait(projLifespan, p);
+                Explosion.explode(projLifespan, p);
                 Debug.Log("yes");
             }
             if (!scattershot && !arc)

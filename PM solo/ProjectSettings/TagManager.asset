@@ -15,6 +15,7 @@ TagManager:
   - UI_Clip
   - Weapon_UI
   - UI_Pause
+  - Boom
   layers:
   - Default
   - TransparentFX

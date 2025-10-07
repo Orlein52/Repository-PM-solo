@@ -9,10 +9,12 @@ public class PlayerController : MonoBehaviour
     Ray interactRay;
     RaycastHit interactHit;
     GameObject pickupObj;
+    Ray boomRay;
 
     public PlayerInput input;
     public Transform weaponSlot;
     public Weapon currentWeapon;
+    
 
     float inputX;
     float inputY;
@@ -28,7 +30,9 @@ public class PlayerController : MonoBehaviour
     Camera playerCam;
     InputAction lookAxis;
     Vector2 cameraRotation = new Vector2(-10, 0);
-
+    Vector3 boom;
+    Vector3 boomdir;
+    Vector3 boomPower;
     public bool attacking = false;
 
     void Start()
@@ -47,7 +51,7 @@ public class PlayerController : MonoBehaviour
         weaponSlot = transform.GetChild(0);
 
         currentWeapon = null;
-
+        
     }
 
     void Update()
@@ -214,6 +218,17 @@ public class PlayerController : MonoBehaviour
             Health -= 3;
         }
 
+        if (other.tag == "Boom")
+        {
+            Health--;
+
+            boom = transform.position - other.transform.position;
+
+            boomRay = new Ray(other.transform.position, boom);
+            boomdir = boomRay.direction;
+            boomPower.Set(boomdir.x * 100, boomdir.y *10, boomdir.z * 100);
+            rb.AddForce(boomPower, ForceMode.Impulse);
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -227,6 +242,7 @@ public class PlayerController : MonoBehaviour
             Health -= 3;
         }
 
+        
     }
 
 

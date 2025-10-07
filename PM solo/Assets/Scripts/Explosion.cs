@@ -19,6 +19,11 @@ public class Explosion : MonoBehaviour
         
     }
 
+    public void explode(float a, GameObject proj)
+    {
+        StartCoroutine(explosionWait(a, proj));
+    }
+
     public IEnumerator explosionWait(float time, GameObject proj)
     {
         Debug.Log("Triggered");
