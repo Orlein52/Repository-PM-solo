@@ -226,7 +226,7 @@ public class PlayerController : MonoBehaviour
 
             boomRay = new Ray(other.transform.position, boom);
             boomdir = boomRay.direction;
-            boomPower.Set(boomdir.x * 100, boomdir.y *10, boomdir.z * 100);
+            boomPower.Set(boomdir.x * 2000, boomdir.y *10, boomdir.z * 2000);
             rb.AddForce(boomPower, ForceMode.Impulse);
         }
     }

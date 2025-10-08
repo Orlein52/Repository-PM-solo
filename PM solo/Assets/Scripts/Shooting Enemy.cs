@@ -12,6 +12,7 @@ public class ShootingEnemy : MonoBehaviour
     Vector3 perchance;
     public float RunAway = 5f;
     public float advance = 5f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,6 +20,7 @@ public class ShootingEnemy : MonoBehaviour
 
         playerpos = GameObject.Find("Player").transform.position;
         distance = Vector3.Distance(playerpos, transform.position);
+        
     }
 
     // Update is called once per frame
@@ -29,6 +31,8 @@ public class ShootingEnemy : MonoBehaviour
         perchance = transform.position - playerpos;
         maybe = new Ray(playerpos, perchance);
         playerpos = GameObject.Find("Player").transform.position;
+
+
         
         if (distance > StayAway)
         {
@@ -49,5 +53,15 @@ public class ShootingEnemy : MonoBehaviour
             agent.speed = RunAway;
         }
             
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Boom")
+        {
+            
+            Destroy(gameObject);
+
+        }
     }
 }
