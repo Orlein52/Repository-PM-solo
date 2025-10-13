@@ -83,7 +83,7 @@ public class Weapon : MonoBehaviour
                 p.GetComponent<Rigidbody>().AddForce(fireforce  * projVelocity);
                 p.GetComponent<Rigidbody>().AddForce(transform.up * arcup, ForceMode.Impulse);
                 Explosion.explode(projLifespan, p);
-                Debug.Log("yes");
+
             }
             if (!scattershot && !arc)
             {

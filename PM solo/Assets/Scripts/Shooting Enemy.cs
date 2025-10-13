@@ -13,6 +13,14 @@ public class ShootingEnemy : MonoBehaviour
     public float RunAway = 5f;
     public float advance = 5f;
 
+    Rigidbody rb;
+    Ray boomRay;
+    public int MaxHealth = 10;
+    public int Health = 10;
+    Vector3 boom;
+    Vector3 boomdir;
+    Vector3 boomPower;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,7 +28,8 @@ public class ShootingEnemy : MonoBehaviour
 
         playerpos = GameObject.Find("Player").transform.position;
         distance = Vector3.Distance(playerpos, transform.position);
-        
+
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -59,8 +68,16 @@ public class ShootingEnemy : MonoBehaviour
     {
         if (other.tag == "Boom")
         {
-            
-            Destroy(gameObject);
+            agent.isStopped = true;
+            Health -= 5;
+
+            boom = transform.position - other.transform.position;
+
+            boomRay = new Ray(other.transform.position, boom);
+            boomdir = boomRay.direction;
+            boomPower.Set(boomdir.x * 2000, boomdir.y * 10, boomdir.z * 2000);
+            rb.AddForce(boomPower, ForceMode.Impulse);
+            Debug.Log("Works");
 
         }
     }
