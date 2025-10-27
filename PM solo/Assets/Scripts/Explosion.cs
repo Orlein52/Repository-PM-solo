@@ -28,6 +28,7 @@ public class Explosion : MonoBehaviour
 
         yield return new WaitForSeconds(time);
         GameObject e = Instantiate(explosion, proj.transform.position, proj.transform.rotation);
+        
         Destroy(proj);
         Destroy(e, explosionLifespan);
         

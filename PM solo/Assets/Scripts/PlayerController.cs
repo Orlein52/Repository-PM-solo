@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
     public float JumpHeight = 10f;
     public float JumpDis = 1.1f;
-    public int MaxHealth = 10;
+    public int maxHealth = 10;
     public int Health = 10;
     public int HealAmount = 5;
     public float interactDis = 1f;
@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     Vector3 boomdir;
     Vector3 boomPower;
     public bool attacking = false;
+    
 
     void Start()
     {
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
         jumpRay = new Ray(transform.position, -transform.up);
 
         input = GetComponent<PlayerInput>();
-        interactRay = new Ray(transform.position, transform.forward);
+        interactRay = new Ray(playerCam.transform.position, playerCam.transform.forward);
         weaponSlot = transform.GetChild(0);
 
         currentWeapon = null;
@@ -56,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
+        interactRay = new Ray(playerCam.transform.position, playerCam.transform.forward);
         //Camera
         Quaternion playerRotation = Quaternion.identity;
         playerRotation.y = playerCam.transform.rotation.y;
@@ -74,9 +75,9 @@ public class PlayerController : MonoBehaviour
         jumpRay.direction = -transform.up;
 
         //Max Health & Respawn
-        if (Health > MaxHealth)
+        if (Health > maxHealth)
         {
-            Health = MaxHealth;
+            Health = maxHealth;
         }
         if (Health <= 0)
         {
@@ -85,8 +86,8 @@ public class PlayerController : MonoBehaviour
 
         //Attack & Weapons
 
-        interactRay.origin = transform.position;
-        interactRay.direction = transform.forward;
+        interactRay.origin = playerCam.transform.position;
+        interactRay.direction = playerCam.transform.forward;
 
         if (Physics.Raycast(interactRay, out interactHit, interactDis))
         {
@@ -109,18 +110,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void firemodeSwitch()
-    {
-        
-
-        if (currentWeapon != null)
-        {
-            if (currentWeapon.weaponID == 1)
-            {
-                currentWeapon.GetComponent<Grenade>().changeFiremode();
-            }
-        }
-    }
+    
 
     public void Move(InputAction.CallbackContext context)
     {
@@ -134,6 +124,7 @@ public class PlayerController : MonoBehaviour
     {
 
         if (Physics.Raycast(jumpRay, JumpDis))
+            
             rb.AddForce(transform.up * JumpHeight, ForceMode.Impulse);
 
     }
@@ -190,12 +181,6 @@ public class PlayerController : MonoBehaviour
                 
             }
         }
-        else
-        {
-            Reload();
-            
-
-        }
     }
 
     //Tag Collision
@@ -207,7 +192,7 @@ public class PlayerController : MonoBehaviour
             Health = 0;
         }
         
-        if((other.tag == "Heal") && (Health < MaxHealth))
+        if((other.tag == "Heal") && (Health < maxHealth ))
         {
             Health += HealAmount;
             Destroy(other.gameObject);
@@ -228,6 +213,12 @@ public class PlayerController : MonoBehaviour
             boomdir = boomRay.direction;
             boomPower.Set(boomdir.x * 2000, boomdir.y *10, boomdir.z * 2000);
             rb.AddForce(boomPower, ForceMode.Impulse);
+        }
+
+        if (other.tag == "Bullet")
+        {
+            Health -= 1;
+            Destroy(other.gameObject);
         }
     }
     private void OnCollisionEnter(Collision collision)

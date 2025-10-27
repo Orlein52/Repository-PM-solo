@@ -10,14 +10,6 @@ public class Weapon : MonoBehaviour
     public Explosion Explosion;
 
     public GameObject projectile;
-    public GameObject scatter1;      
-    public GameObject scatter2;
-    public GameObject scatter3;
-    public GameObject scatter4;
-    public GameObject scatter5;
-    public GameObject scatter6;
-    public GameObject scatter7;
-    public GameObject scatter8;
     public AudioSource weaponSpeaker;
     public Transform firePoint;
     public Camera firingDirection;
@@ -28,7 +20,6 @@ public class Weapon : MonoBehaviour
     public bool canFire = true;
     public bool holdToAttack = true;
     public bool reloading = false;
-    public bool scattershot = false;
     public bool arc = false;
     public int weaponID;
     public string weaponName;
@@ -40,8 +31,6 @@ public class Weapon : MonoBehaviour
     public float rof;
     public float arcup;
     public float scatter;
-    public int fireModes;
-    public int currentFireMode;
     public int clip;
     public int clipSize;
 
@@ -57,7 +46,7 @@ public class Weapon : MonoBehaviour
         firePoint = transform.GetChild(0);
         fireforce = firingDirection.transform.forward;
         arcdir = fireforce + (transform.up * arcup);
-        scatter = Random.Range(1, 8);
+        scatter = Random.Range(1, 5);
         Mathf.RoundToInt (scatter);
         Explosion = GetComponent<Explosion>();
     }
@@ -77,65 +66,16 @@ public class Weapon : MonoBehaviour
             fireforce = firingDirection.transform.forward;
             arcdir = fireforce + (transform.up * arcup);
 
-            if (!scattershot && arc)
-            {
-                GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
-                p.GetComponent<Rigidbody>().AddForce(fireforce  * projVelocity);
-                p.GetComponent<Rigidbody>().AddForce(transform.up * arcup, ForceMode.Impulse);
-                Explosion.explode(projLifespan, p);
+            
+            
+            GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
+            p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
+            p.GetComponent<Rigidbody>().AddForce(transform.up * arcup, ForceMode.Impulse);
+            Explosion.explode(projLifespan, p);
 
-            }
-            if (!scattershot && !arc)
-            {
-                GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
-                p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
 
-                Destroy(p, projLifespan);
-            }
-            if (scattershot && !arc)
-            {
-                if (scatter == 1)
-                {
-                    GameObject p = Instantiate(scatter1, firePoint.position, transform.rotation);
-                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
-                }
-                if (scatter == 2)
-                {
-                    GameObject p = Instantiate(scatter2, firePoint.position, transform.rotation);
-                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
-                }
-                if (scatter == 3)
-                {
-                    GameObject p = Instantiate(scatter3, transform.position, transform.rotation);
-                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
-                }
-                if (scatter == 4)
-                {
-                    GameObject p = Instantiate(scatter4, firePoint.position, transform.rotation);
-                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
-                }
-                if (scatter == 5)
-                {
-                    GameObject p = Instantiate(scatter5, firePoint.position, transform.rotation);
-                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
-                }
-                if (scatter == 6)
-                {
-                    GameObject p = Instantiate(scatter6, firePoint.position, transform.rotation);
-                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
-                }
-                if (scatter == 7)
-                {
-                    GameObject p = Instantiate(scatter7, firePoint.position, transform.rotation);
-                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
-                }
-                if (scatter == 8)
-                {
-                    GameObject p = Instantiate(scatter8, firePoint.position, transform.rotation);
-                    p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
-                }
 
-            }
+
 
             clip--;
             canFire = false;

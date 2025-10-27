@@ -15,14 +15,16 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        
         ammocounter = GameObject.FindGameObjectWithTag("UI_Ammo").GetComponent<TextMeshProUGUI>();
         healthBar = GameObject.FindGameObjectWithTag("UI_Health").GetComponent<Image>();
         clip = GameObject.FindGameObjectWithTag("UI_Clip").GetComponent<TextMeshProUGUI>();
         weaponUI = GameObject.FindGameObjectWithTag("Weapon_UI");
         pauseMenu = GameObject.FindGameObjectWithTag("UI_Pause");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
+
     }
 
     // Update is called once per frame
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex >= 1)
         {
-            healthBar.fillAmount = (float)player.Health / (float)player.MaxHealth;
+            healthBar.fillAmount = (float)player.Health / (float)player.maxHealth;
             if (player.currentWeapon != null)
             {
                 weaponUI.SetActive(true);
