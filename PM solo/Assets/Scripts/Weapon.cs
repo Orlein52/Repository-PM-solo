@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -71,6 +72,7 @@ public class Weapon : MonoBehaviour
             GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
             p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
             p.GetComponent<Rigidbody>().AddForce(transform.up * arcup, ForceMode.Impulse);
+            
             Explosion.explode(projLifespan, p);
 
 

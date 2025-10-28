@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     public Weapon currentWeapon;
     
 
-    float inputX;
-    float inputY;
+    public float inputX;
+    public float inputY;
     public float speed = 5f;
     public float JumpHeight = 10f;
     public float JumpDis = 1.1f;
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
         tempMove.x = inputY * speed;
         tempMove.z = inputX * speed;
         rb.linearVelocity = (tempMove.x * transform.forward) + (tempMove.y * transform.up) + (tempMove.z * transform.right);
-
+        Debug.Log(rb.angularVelocity);
         //Jump Ray
         jumpRay.origin = transform.position;
         jumpRay.direction = -transform.up;
