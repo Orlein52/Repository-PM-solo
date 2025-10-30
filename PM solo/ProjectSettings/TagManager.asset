@@ -17,6 +17,13 @@ TagManager:
   - UI_Pause
   - Boom
   - Bullet
+  - Manager
+  - UI_Wave
+  - UI_Score
+  - UI_Mult
+  - Death_Score
+  - Highscore
+  - UI_Death
   layers:
   - Default
   - TransparentFX

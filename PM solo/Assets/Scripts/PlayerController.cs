@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     Vector3 boomdir;
     Vector3 boomPower;
     public bool attacking = false;
-    
+    GameManager gameManager;
 
     void Start()
     {
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         lookAxis = GetComponent<PlayerInput>().currentActionMap.FindAction("Look");
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
+        gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameManager>();
         jumpRay = new Ray(transform.position, -transform.up);
 
         input = GetComponent<PlayerInput>();
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
         tempMove.x = inputY * speed;
         tempMove.z = inputX * speed;
         rb.linearVelocity = (tempMove.x * transform.forward) + (tempMove.y * transform.up) + (tempMove.z * transform.right);
-        Debug.Log(rb.angularVelocity);
+        
         //Jump Ray
         jumpRay.origin = transform.position;
         jumpRay.direction = -transform.up;

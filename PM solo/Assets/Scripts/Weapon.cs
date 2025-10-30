@@ -71,9 +71,9 @@ public class Weapon : MonoBehaviour
             
             GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
             p.GetComponent<Rigidbody>().AddForce(fireforce * projVelocity);
-            p.GetComponent<Rigidbody>().AddForce(transform.up * arcup, ForceMode.Impulse);
-            
-            Explosion.explode(projLifespan, p);
+            //p.GetComponent<Rigidbody>().AddForce(transform.up * arcup, ForceMode.Impulse);
+
+            Destroy(p, projLifespan);
 
 
 

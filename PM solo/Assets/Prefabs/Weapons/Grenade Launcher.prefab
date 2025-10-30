@@ -169,7 +169,7 @@ MonoBehaviour:
   weaponID: 1
   weaponName: Grenade
   projLifespan: 3
-  projVelocity: 300
+  projVelocity: 3000
   reloadCooldown: 1
   rof: 0.5
   arcup: 1.005

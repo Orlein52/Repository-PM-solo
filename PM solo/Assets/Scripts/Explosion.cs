@@ -18,19 +18,18 @@ public class Explosion : MonoBehaviour
         
     }
 
-    public void explode(float a, GameObject proj)
+    public void explode(GameObject proj)
     {
-        StartCoroutine(explosionWait(a, proj));
-    }
-
-    public IEnumerator explosionWait(float time, GameObject proj)
-    {
-
-        yield return new WaitForSeconds(time);
         GameObject e = Instantiate(explosion, proj.transform.position, proj.transform.rotation);
-        
+
         Destroy(proj);
         Destroy(e, explosionLifespan);
-        
     }
+
+
+    
+
+
+        
+    
 }

@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 7415423819418665284}
   - component: {fileID: 5028376531926410893}
   - component: {fileID: 6317993296652455805}
+  - component: {fileID: 1151697735669428358}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Enemy
@@ -180,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af3f291da477384cbc94ee80a02733c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Explosion: {fileID: 0}
   StayAway: 5
   RunAway: 15
   advance: 5
@@ -218,6 +220,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 10
   m_CollisionDetection: 0
+--- !u!114 &1151697735669428358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8809330272097556539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d117470862596dc43aaff4068676b402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 4777466755144045673, guid: a2884032844b0fa4591784a0b1902b35, type: 3}
+  explosionLifespan: 2
 --- !u!1001 &3624873461369141072
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using System.Collections;
 public class ShootingEnemy : MonoBehaviour
 
 {
+    public Explosion Explosion;
     NavMeshAgent agent;
     Transform player;
     float distance;
@@ -20,7 +21,7 @@ public class ShootingEnemy : MonoBehaviour
     public bool fired;
     public float rof = 1;
     public bool ranged = true;
-    
+    GameManager gameManager;
 
     Rigidbody rb;
     Ray boomRay;
@@ -36,8 +37,8 @@ public class ShootingEnemy : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        
+        Explosion = GetComponent<Explosion>();
+        gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameManager>();
         distance = Vector3.Distance(player.transform.position, transform.position);
         rb = GetComponent<Rigidbody>();
         shoot = Random.Range(0, 1);
@@ -87,6 +88,7 @@ public class ShootingEnemy : MonoBehaviour
         }
         if (Health <= 0)
         {
+            gameManager.Death();
             Destroy(gameObject);
         }
 
@@ -97,13 +99,19 @@ public class ShootingEnemy : MonoBehaviour
     {
         if (other.tag == "Boom")
         {
+            Debug.Log("Triggered");
             Health -= 5;
         }
-
+        if (other.tag == "Proj")
+        {
+            
+            Explosion.explode(other.gameObject);
+        }
     }
     IEnumerator fireCooldown()
     {
         yield return new WaitForSeconds(rof);
         fired = false;
     }
+    
 }
