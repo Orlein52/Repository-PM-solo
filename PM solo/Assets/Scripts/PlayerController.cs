@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Health <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            gameManager.PlayerDeath();
         }
 
         //Attack & Weapons

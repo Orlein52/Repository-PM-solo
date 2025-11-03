@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4566355918387017016}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPaused: 0
-  shoot: {fileID: 0}
-  rush: {fileID: 0}
+  shoot: {fileID: 8809330272097556539, guid: 16e444d2ea3983245b8066d4d028ad6a, type: 3}
+  rush: {fileID: 6443398182515389505, guid: 3c2aee3f286cbcd4b84dc641d4018bdc, type: 3}
   allDead: 0
   enemyCount: 0
-  maxEnemies: 0
+  maxEnemies: 2
   enemy: 0
   score: 0
   waveNumber: 1

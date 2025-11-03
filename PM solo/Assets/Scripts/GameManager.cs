@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     PlayerController player;
     GameObject weaponUI;
     Image healthBar;
-    TextMeshProUGUI ammocounter;
+    Keeper keeper;
     TextMeshProUGUI clip;
     TextMeshProUGUI scoreText;
     TextMeshProUGUI wave;
@@ -34,9 +34,9 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        keeper = GameObject.FindGameObjectWithTag("Keeper").GetComponent<Keeper>();
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            ammocounter = GameObject.FindGameObjectWithTag("UI_Ammo").GetComponent<TextMeshProUGUI>();
             healthBar = GameObject.FindGameObjectWithTag("UI_Health").GetComponent<Image>();
             clip = GameObject.FindGameObjectWithTag("UI_Clip").GetComponent<TextMeshProUGUI>();
             weaponUI = GameObject.FindGameObjectWithTag("Weapon_UI");
@@ -52,28 +52,26 @@ public class GameManager : MonoBehaviour
             deathScore = GameObject.FindGameObjectWithTag("Death_Score").GetComponent<TextMeshProUGUI>();
             deathhighScore = GameObject.FindGameObjectWithTag("Highscore").GetComponent<TextMeshProUGUI>();
         }
-        
+
         Time.timeScale = 1;
-        DontDestroyOnLoad(gameObject);
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            deathhighScore.text = "Highscore: " + highScore;
-            deathScore.text = "Score: " + score;
-            if (score == highScore)
-            {
-
-            }
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            enemySpawn = Random.insideUnitCircle * 6;
-            enemy = Random.Range(0, 2);
+            enemySpawn = Random.insideUnitCircle * 2;
+            enemy = Random.Range(0, 5);
             spawnLoc = enemySpawn + transform.position;
             waveNumber = maxEnemies - 1;
             wave.text = "Wave " + waveNumber;
@@ -83,7 +81,7 @@ public class GameManager : MonoBehaviour
             if (player.currentWeapon != null)
             {
                 weaponUI.SetActive(true);
-                ammocounter.text = "Ammo: " + player.currentWeapon.ammo + "/" + player.currentWeapon.maxAmmo;
+                
                 clip.text = "Clip = " + player.currentWeapon.clip + "/" + player.currentWeapon.clipSize;
             }
             else
@@ -94,25 +92,31 @@ public class GameManager : MonoBehaviour
             {
                 scoreText.color = Color.yellow;
             }
-        }
-        if (enemyCount == maxEnemies)
-        {
-            allDead = false;
-        }
-        if (allDead)
-        {
-            if (enemy == 0)
+            if (enemyCount == 0)
             {
-                GameObject e = Instantiate(shoot, spawnLoc, transform.rotation);
-                enemyCount++;
-                waveNumber++;
+                allDead = true;
+
             }
-            if (enemy == 1)
+            if (enemyCount == maxEnemies)
             {
-                GameObject e = Instantiate(rush, spawnLoc, transform.rotation);
-                enemyCount++;
+                allDead = false;
+            }
+            if (allDead)
+            {
+                if (enemy == 0)
+                {
+                    GameObject e = Instantiate(rush, spawnLoc, transform.rotation);
+                    enemyCount++;
+
+                }
+                if (enemy >= 1)
+                {
+                    GameObject e = Instantiate(shoot, spawnLoc, transform.rotation);
+                    enemyCount++;
+                }
             }
         }
+        
     }
     
     public void Pause()
@@ -148,12 +152,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(1);
         score = 0;
         maxEnemies = 2;
-        
+
     }
     public void LoadLevel(int level)
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(level);
+
     }
     public void Death()
     {
@@ -172,6 +177,7 @@ public class GameManager : MonoBehaviour
         {
             bestRun = true;
             highScore = score;
+
         }
     }
     public void MainMenu()

@@ -35,10 +35,8 @@ public class Weapon : MonoBehaviour
     public int clip;
     public int clipSize;
 
-    [Header("Ammo Stats")]
-    public int ammo;
-    public int maxAmmo;
-    public int ammoRefill;
+
+
 
 
     void Start()
@@ -93,24 +91,17 @@ public class Weapon : MonoBehaviour
         else
         {
             int reloadCount = clipSize - clip;
+            clip += reloadCount;
+        }
 
-            if (ammo < reloadCount)
-            {
-                clip += ammo;
-                ammo = 0;
-            }
 
-            else
-            {
-                clip += reloadCount;
-                ammo -= reloadCount;
-            }
+
 
             reloading = true;
             canFire = false;
             StartCoroutine("reloadingCooldown");
             return;
-        }
+        
     }
 
     public void equip(PlayerController player)

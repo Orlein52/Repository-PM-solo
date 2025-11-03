@@ -24,6 +24,7 @@ TagManager:
   - Death_Score
   - Highscore
   - UI_Death
+  - Keeper
   layers:
   - Default
   - TransparentFX
