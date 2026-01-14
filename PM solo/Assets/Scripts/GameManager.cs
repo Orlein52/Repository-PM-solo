@@ -30,8 +30,9 @@ public class GameManager : MonoBehaviour
     Vector3 spawnLoc;
     public int highScore;
     public bool bestRun;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public Node node;
+    public int enNum;
+    Node test;
     void Start()
     {
         keeper = GameObject.FindGameObjectWithTag("Keeper").GetComponent<Keeper>();
@@ -52,26 +53,47 @@ public class GameManager : MonoBehaviour
             deathScore = GameObject.FindGameObjectWithTag("Death_Score").GetComponent<TextMeshProUGUI>();
             deathhighScore = GameObject.FindGameObjectWithTag("Highscore").GetComponent<TextMeshProUGUI>();
         }
-
         Time.timeScale = 1;
-
+        //Waves (cumulative)
+        //1
+        node = new Node(2, 0);
+        node.Add(1);
+        //2
+        node.Add(2);
+        //3
+        node.Add(2);
+        //4
+        node.Add(1);
+        //5
+        node.Add(1);
+        //AddAt & RemoveAt/Remove tests
+        test = new Node(1, 0);
+        test.Add(1);
+        test.Add(0);
+        test.Add(1);
+        test.Add(0);
+        test.AddAt(2,1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             enemySpawn = Random.insideUnitCircle * 2;
-            enemy = Random.Range(0, 5);
+            if (waveNumber <= 5)
+            {
+                enemy = node.Get(enNum);
+            }
+            if (waveNumber > 5)
+            {
+                enemy = Random.Range(1, 2);
+            }
             spawnLoc = enemySpawn + transform.position;
             waveNumber = maxEnemies - 1;
             wave.text = "Wave " + waveNumber;
@@ -81,7 +103,6 @@ public class GameManager : MonoBehaviour
             if (player.currentWeapon != null)
             {
                 weaponUI.SetActive(true);
-                
                 clip.text = "Clip = " + player.currentWeapon.clip + "/" + player.currentWeapon.clipSize;
             }
             else
@@ -95,7 +116,7 @@ public class GameManager : MonoBehaviour
             if (enemyCount == 0)
             {
                 allDead = true;
-
+                enNum = 0;
             }
             if (enemyCount == maxEnemies)
             {
@@ -103,22 +124,21 @@ public class GameManager : MonoBehaviour
             }
             if (allDead)
             {
-                if (enemy == 0)
+                if (enemy == 2)
                 {
                     GameObject e = Instantiate(rush, spawnLoc, transform.rotation);
                     enemyCount++;
-
                 }
-                if (enemy >= 1)
+                if (enemy == 1)
                 {
                     GameObject e = Instantiate(shoot, spawnLoc, transform.rotation);
                     enemyCount++;
                 }
+                enNum++;
             }
+            Debug.Log(test.Get(2));
         }
-        
     }
-    
     public void Pause()
     {
         if (!IsPaused)
@@ -133,9 +153,7 @@ public class GameManager : MonoBehaviour
         {
             Resume();
         }
-
     }
-
     public void Resume()
     {
         if (IsPaused)
@@ -152,13 +170,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(1);
         score = 0;
         maxEnemies = 2;
-
     }
     public void LoadLevel(int level)
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(level);
-
     }
     public void Death()
     {
@@ -177,18 +193,14 @@ public class GameManager : MonoBehaviour
         {
             bestRun = true;
             highScore = score;
-
         }
     }
     public void MainMenu()
     {
-        
         LoadLevel(0);
     }
-
     public void QuitGame()
     {
         Application.Quit();
     }
-
 }
